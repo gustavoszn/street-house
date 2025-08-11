@@ -1,170 +1,232 @@
 import 'package:flutter/material.dart';
-import '../widgets/logo.dart';
+import '../widgets/logo_widget.dart';
+import '../widgets/background_widget.dart';
+import '../theme/design_tokens.dart';
 
 class SobrePage extends StatelessWidget {
-  const SobrePage({Key? key}) : super(key: key);
+  const SobrePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: BackgroundWidget(
         child: Column(
           children: [
-            const SizedBox(height: 8),
-            const Align(
-              alignment: Alignment.topCenter,
-              child: Text(
-                " ,",
-                style: TextStyle(
-                  fontFamily: 'SansitaSwashed',
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 14,
-                  color: Colors.black54,
+            // Banner superior com gradiente e logo (agora com borda RETA)
+            Container(
+              height: 150,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.purpleGradientStart,
+                    AppColors.purpleGradientMiddle,
+                    AppColors.purpleGradientEnd,
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  transform: GradientRotation(135 * 3.14 / 180),
                 ),
+                // Removido o BorderRadius para ficar reto!
+                // borderRadius: const BorderRadius.only(
+                //   bottomLeft: Radius.circular(AppRadius.card),
+                //   bottomRight: Radius.circular(AppRadius.card),
+                // ),
+              ),
+              child: LogoWidget(
+                size: 120,
+                colorOverlay: Colors.white,
+                semanticsLabel: 'Street House — logo',
+                onTap: () => Navigator.of(context).pushNamed('/home'),
               ),
             ),
-            const SizedBox(height: 6),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(0),
-                  child: Image.asset(
-                    'lib/assets/fundo_login.png',
-                    fit: BoxFit.cover,
-                    height: 110,
-                    width: double.infinity,
-                  ),
-                ),
-                const StreetLogo(height: 55),
-              ],
-            ),
+            // Card branco, também com borda reta superior
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
-                child: ListView(
-                  children: [
-                    const Text(
-                      "Diversas opções de artista...",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 19,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 26),
-                    const Text.rich(
-                      TextSpan(
-                        text: "+100",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          color: Color(0xFF8C27F7),
-                          fontSize: 18,
+              child: Container(
+                margin: const EdgeInsets.only(top: 0),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  // Apenas borda inferior arredondada, se quiser
+                  // borderRadius: const BorderRadius.vertical(
+                  //   top: Radius.circular(0), // borda superior reta
+                  //   bottom: Radius.circular(AppRadius.card),
+                  // ),
+                  boxShadow: AppShadows.card,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(AppSpacing.horizontal),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Diversas opções de artista...',
+                          style: AppTextStyles.h2,
                         ),
-                        children: [
-                          TextSpan(
-                            text: "\nartistas contratados",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black54,
-                              fontSize: 15,
+                        const SizedBox(height: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MetricBlock(number: '+100', description: 'artistas contratados'),
+                            const SizedBox(height: 18),
+                            MetricBlock(number: '+1', description: 'cidades atendidas'),
+                            const SizedBox(height: 18),
+                            MetricBlock(number: '+1 ano', description: 'no mercado'),
+                          ],
+                        ),
+                        const SizedBox(height: 32),
+                        Row(
+                          children: [
+                            Tooltip(
+                              message: "Conheça nossa história!",
+                              child: Icon(Icons.info_outline, color: AppColors.purpleHighlight, size: 18),
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              'Quem somos nós?',
+                              style: AppTextStyles.subtitle,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          'Somos uma plataforma que conecta artistas e contratantes de forma moderna, rápida e segura. Nossa missão é valorizar o talento nacional e facilitar a contratação.',
+                          style: AppTextStyles.body.copyWith(fontSize: 14, color: AppColors.textGray),
+                          maxLines: 6,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 20),
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).pushNamed('/acessibilidade'),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Acessibilidade', style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w500)),
+                              Container(
+                                margin: const EdgeInsets.only(top: 2),
+                                height: 2,
+                                width: 80,
+                                color: AppColors.lightGray,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).pushNamed('/agenda'),
+                          child: Text(
+                            'AGENDA',
+                            style: AppTextStyles.h2.copyWith(
+                              color: AppColors.purpleHighlight,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 1.2,
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 22),
-                    const Text.rich(
-                      TextSpan(
-                        text: "+1",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          color: Color(0xFF8C27F7),
-                          fontSize: 18,
                         ),
-                        children: [
-                          TextSpan(
-                            text: "\ncidades atendidas",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black54,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
-                      ),
+                        const SizedBox(height: 40),
+                        SafeArea(child: SizedBox(height: 10)),
+                      ],
                     ),
-                    const SizedBox(height: 22),
-                    const Text.rich(
-                      TextSpan(
-                        text: "+1 ano",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          color: Color(0xFF8C27F7),
-                          fontSize: 18,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: "\nno mercado",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black54,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 22),
-                    const Text(
-                      "Quem somos nós?",
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    const Text(
-                      "Nosso projeto visa otimizar a comunicação entre organizadores e artistas, simplificando o planejamento de eventos e garantindo resultados mais eficientes e memoráveis para todos os envolvidos.",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black54,
-                      ),
-                    ),
-                    const SizedBox(height: 22),
-                    const Text(
-                      "Acessibilidade",
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const Divider(
-                      height: 18,
-                      thickness: 1,
-                      color: Colors.black87,
-                    ),
-                    const SizedBox(height: 5),
-                    const Text(
-                      "AGENDA",
-                      style: TextStyle(
-                        color: Color(0xFF8C27F7),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class MetricBlock extends StatelessWidget {
+  final String number;
+  final String description;
+
+  const MetricBlock({
+    super.key,
+    required this.number,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AnimatedCount(
+          count: number,
+          style: TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+            color: AppColors.purpleHighlight,
+          ),
+        ),
+        Text(
+          description,
+          style: TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 13,
+            color: AppColors.black, // ESCURO!
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class AnimatedCount extends StatefulWidget {
+  final String count;
+  final TextStyle style;
+  const AnimatedCount({super.key, required this.count, required this.style});
+
+  @override
+  State<AnimatedCount> createState() => _AnimatedCountState();
+}
+
+class _AnimatedCountState extends State<AnimatedCount> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  int? number;
+
+  @override
+  void initState() {
+    super.initState();
+    number = int.tryParse(widget.count.replaceAll(RegExp(r'[^0-9]'), ''));
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+    _animation = Tween<double>(begin: 0, end: (number ?? 100).toDouble()).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    );
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (_, __) {
+        String display = widget.count;
+        if (number != null) {
+          if (widget.count.contains('+')) {
+            display = '+${_animation.value.toInt()}';
+          } else if (widget.count.contains('ano')) {
+            display = '+${_animation.value.toInt()} ano';
+          } else {
+            display = _animation.value.toInt().toString();
+          }
+        }
+        return Text(display, style: widget.style);
+      },
     );
   }
 }
