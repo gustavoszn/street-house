@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:streethousemobile/main.dart';
+import 'package:streethouse_flutter/main.dart'; // Corrija para o seu package name!
 
 void main() {
   testWidgets('App builds and shows LoginPage', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const StreetHouseApp());
+    await tester.pumpWidget(const MyApp());
 
-    // Verify that the login screen appears (adjust the text according to your LoginPage).
+    // Verifica se o MaterialApp está presente
     expect(find.byType(MaterialApp), findsOneWidget);
-    expect(find.byType(StreetHouseApp), findsOneWidget);
-    // Exemplo: Se seu LoginPage tem o texto "E-mail:", pode testar isso:
-    expect(find.text('E-mail:'), findsOneWidget);
+
+    // Verifica se os campos de login aparecem (ajuste o texto conforme seu login_page.dart!)
+    expect(find.text('E-mail'), findsOneWidget);
+    expect(find.text('Senha'), findsOneWidget);
   });
 }

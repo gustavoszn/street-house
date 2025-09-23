@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'pages/login_page.dart';
-import 'pages/alteracao_senha_page.dart';
-import 'pages/confirmar_codigo_page.dart';
 import 'pages/sobre_page.dart';
-import 'pages/cadastro_artista_page.dart';
+import 'pages/acessibilidade_page.dart';
 import 'pages/agenda_page.dart';
+import 'pages/cadastro_page.dart';
+import 'pages/code_recovery_page.dart';
+import 'pages/change_password_page.dart';
 
 void main() {
-  runApp(const StreetHouseApp());
+  runApp(const MyApp());
 }
 
-class StreetHouseApp extends StatelessWidget {
-  const StreetHouseApp({super.key});
-
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Street House',
       debugShowCheckedModeBanner: false,
+      title: 'Street House',
       theme: ThemeData(
-        fontFamily: 'Montserrat',
-        primaryColor: const Color(0xFF8C27F7),
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF8C27F7)),
-        useMaterial3: true,
+        textTheme: GoogleFonts.interTextTheme(ThemeData.light().textTheme),
       ),
       initialRoute: '/login',
       routes: {
-        '/login': (_) => const LoginPage(),
-        '/alteracao-senha': (_) => const AlteracaoSenhaPage(),
-        '/confirmar-codigo': (_) => const ConfirmarCodigoPage(),
-        '/sobre': (_) => const SobrePage(),
-        '/cadastro-artista': (_) => const CadastroArtistaPage(),
-        '/agenda': (_) => const AgendaPage(),
+        '/login': (context) => const LoginPage(),
+        '/sobre': (context) => const SobrePage(),
+        '/acessibilidade': (context) => const AcessibilidadePage(),
+        '/agenda': (context) => const AgendaPage(),
+        '/cadastro': (context) => const CadastroPage(),
+        '/recuperar-codigo': (context) => const CodeRecoveryPage(),
+        '/alterar-senha': (context) => const ChangePasswordPage(),
       },
     );
   }
