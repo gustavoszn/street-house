@@ -73,6 +73,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+<<<<<<< HEAD
   file:
     dependency: transitive
     description:
@@ -81,6 +82,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
+=======
+>>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
   flutter:
     dependency: "direct main"
     description: flutter
@@ -105,7 +108,11 @@ packages:
     source: hosted
     version: "6.3.0"
   http:
+<<<<<<< HEAD
     dependency: "direct main"
+=======
+    dependency: transitive
+>>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
     description:
       name: http
       sha256: bb2ce4590bc2667c96f318d68cac1b5a7987ec819351d32b1c987239a815e007
@@ -143,7 +150,11 @@ packages:
       sha256: "8d5a2d49f4a66b49744b23b018848400d23e54caf9463f4eb20df3eb8acb2eb1"
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
     version: "3.0.2"
+=======
+    version: "3.0.1"
+>>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
   matcher:
     dependency: transitive
     description:
@@ -240,6 +251,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+<<<<<<< HEAD
   shared_preferences:
     dependency: "direct main"
     description:
@@ -296,6 +308,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
+=======
+>>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
   sky_engine:
     dependency: transitive
     description: flutter
@@ -348,7 +362,11 @@ packages:
       sha256: "522f00f556e73044315fa4585ec3270f1808a4b186c936e612cab0b565ff1e00"
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
     version: "0.7.6"
+=======
+    version: "0.7.4"
+>>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
   typed_data:
     dependency: transitive
     description:
@@ -454,5 +472,10 @@ packages:
     source: hosted
     version: "1.1.0"
 sdks:
+<<<<<<< HEAD
   dart: ">=3.8.0-0 <4.0.0"
   flutter: ">=3.29.0"
+=======
+  dart: ">=3.7.0 <4.0.0"
+  flutter: ">=3.27.0"
+>>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60

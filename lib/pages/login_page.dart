@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/background_widget.dart';
+<<<<<<< HEAD
 import '../services/api_service.dart';
+=======
+>>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -25,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void login() async {
     setState(() => isLoading = true);
+<<<<<<< HEAD
     try {
       final data = await ApiService.login(
         emailController.text,
@@ -66,6 +70,12 @@ class _LoginPageState extends State<LoginPage> {
     } finally {
       if (mounted) setState(() => isLoading = false);
     }
+=======
+    await Future.delayed(const Duration(seconds: 2));
+    if (!mounted) return;
+    setState(() => isLoading = false);
+    Navigator.of(context).pushReplacementNamed('/home');
+>>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
   }
 
   @override

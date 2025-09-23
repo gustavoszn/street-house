@@ -12,8 +12,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^6.1.0
   url_launcher: ^6.3.1
+<<<<<<< HEAD
   http: ^1.1.0
   shared_preferences: ^2.2.2
+=======
+>>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
 
 dev_dependencies:
   flutter_test:
