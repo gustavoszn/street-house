@@ -22,7 +22,7 @@ class _CadastroPageState extends State<CadastroPage> {
   bool captcha = false;
 
   void cadastrar() async {
-    if (_formKey.currentState?.validate() ?? false && captcha) {
+    if ((_formKey.currentState?.validate() ?? false) && captcha) {
       setState(() => isLoading = true);
       await Future.delayed(const Duration(seconds: 2));
       if (!mounted) return;
@@ -32,6 +32,18 @@ class _CadastroPageState extends State<CadastroPage> {
       );
       Navigator.of(context).pushReplacementNamed('/login');
     }
+  }
+
+  @override
+  void dispose() {
+    nomeController.dispose();
+    telController.dispose();
+    cpfController.dispose();
+    enderecoController.dispose();
+    nascimentoController.dispose();
+    emailController.dispose();
+    senhaController.dispose();
+    super.dispose();
   }
 
   @override
@@ -46,7 +58,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 20, offset: Offset(0, 10))],
+                  boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 20, offset: Offset(0, 10))],
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 20),
                 child: Form(
@@ -123,9 +135,10 @@ class _CadastroPageState extends State<CadastroPage> {
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.grey[300]!),
                           ),
-                          suffixIcon: Icon(Icons.calendar_today),
+                          suffixIcon: const Icon(Icons.calendar_today),
                         ),
                         style: GoogleFonts.inter(),
+                        readOnly: true,
                         onTap: () async {
                           FocusScope.of(context).requestFocus(FocusNode());
                           DateTime? picked = await showDatePicker(
