@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import '../widgets/logo_widget.dart';
 import '../theme/design_tokens.dart';
-<<<<<<< HEAD
 import '../services/api_service.dart';
 
 // MODELO DE EVENTO
 class AgendaEvent {
   final String? id;
-=======
-
-// MODELO DE EVENTO
-class AgendaEvent {
->>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
   final String name;
   final DateTime date;
   final String cep;
@@ -21,11 +15,9 @@ class AgendaEvent {
   final String neighborhood;
   final String city;
   final String state;
+
   AgendaEvent({
-<<<<<<< HEAD
     this.id,
-=======
->>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
     required this.name,
     required this.date,
     required this.cep,
@@ -36,7 +28,6 @@ class AgendaEvent {
     required this.city,
     required this.state,
   });
-<<<<<<< HEAD
 
   Map<String, dynamic> toApi() => {
     'id': id,
@@ -63,8 +54,6 @@ class AgendaEvent {
     city: json['cidade'] ?? '',
     state: json['estado'] ?? '',
   );
-=======
->>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
 }
 
 // Lista de estados brasileiros
@@ -82,7 +71,6 @@ class AgendaPage extends StatefulWidget {
 }
 
 class _AgendaPageState extends State<AgendaPage> {
-<<<<<<< HEAD
   int year = DateTime.now().year, month = DateTime.now().month;
   int selectedDay = DateTime.now().day;
 
@@ -216,103 +204,6 @@ class _AgendaPageState extends State<AgendaPage> {
     }
   }
 
-=======
-  int year = 2025, month = 4;
-  int selectedDay = 24;
-
-  final months = [
-    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-  ];
-  final monthsShort = [
-    'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'
-  ];
-
-  List<AgendaEvent> events = [];
-
-  // Hover state for "Voltar" button
-  bool _isHoveringBack = false;
-
-  void _changeMonth(int delta) {
-    setState(() {
-      month += delta;
-      if (month < 1) { month = 12; year--; }
-      if (month > 12) { month = 1; year++; }
-      selectedDay = 1;
-    });
-  }
-
-  List<AgendaEvent> get dayEvents => events
-      .where((e) => e.date.year == year && e.date.month == month && e.date.day == selectedDay)
-      .toList();
-
-  Set<int> get eventDays => events
-      .where((e) => e.date.year == year && e.date.month == month)
-      .map((e) => e.date.day)
-      .toSet();
-
-  void _saveEvent(AgendaEvent event) {
-    setState(() {
-      events.add(event);
-      selectedDay = event.date.day;
-    });
-    Navigator.of(context).pop();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Evento salvo!", style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.green,
-        duration: Duration(seconds: 1),
-      ),
-    );
-  }
-
-  void _editEvent(AgendaEvent event) {
-    showDialog(
-      context: context,
-      builder: (context) => Center(
-        child: EventForm(
-          initial: event,
-          months: months,
-          onSave: (ev) {
-            setState(() {
-              int idx = events.indexOf(event);
-              events[idx] = ev;
-            });
-            Navigator.of(context).pop();
-          },
-          onDelete: () => _confirmDelete(event),
-        ),
-      ),
-    );
-  }
-
-  void _confirmDelete(AgendaEvent event) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Confirmar exclusão"),
-        content: const Text("Tem certeza que deseja excluir este evento?"),
-        actions: [
-          TextButton(
-            style: TextButton.styleFrom(foregroundColor: AppColors.purpleHighlight),
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text("Cancelar"),
-          ),
-          TextButton(
-            style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
-            onPressed: () => Navigator.of(context).pop(true),
-            child: const Text("Excluir"),
-          ),
-        ],
-      ),
-    );
-    if (confirmed == true) {
-      setState(() { events.remove(event); });
-      Navigator.of(context).pop();
-    }
-  }
-
->>>>>>> 790e90aa38a4b950cdf58d79bf8ebcd59715ce60
   void _openNewEventForm() {
     showDialog(
       context: context,
