@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../widgets/logo_widget.dart';
 import '../theme/design_tokens.dart';
 import '../services/api_service.dart';
@@ -729,6 +731,34 @@ class _EventFormState extends State<EventForm> {
     }
   }
 
+  String _formatCep(String value) {
+    final numbers = value.replaceAll(RegExp(r'[^0-9]'), '');
+    if (numbers.length <= 5) return numbers;
+    return '${numbers.substring(0, 5)}-${numbers.substring(5, numbers.length > 8 ? 8 : numbers.length)}';
+  }
+
+  Future<void> _searchCep(String cepValue) async {
+    final cleanCep = cepValue.replaceAll(RegExp(r'[^0-9]'), '');
+    if (cleanCep.length != 8) return;
+    
+    try {
+      final response = await http.get(Uri.parse('https://viacep.com.br/ws/$cleanCep/json/'));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['erro'] == null) {
+          setState(() {
+            address.text = data['logradouro'] ?? '';
+            neighborhood.text = data['bairro'] ?? '';
+            city.text = data['localidade'] ?? '';
+            state = data['uf'] ?? '';
+          });
+        }
+      }
+    } catch (e) {
+      debugPrint('Erro ao buscar CEP: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final daysInMonth = DateTime(date.year, date.month + 1, 0).day;
@@ -913,6 +943,19 @@ class _EventFormState extends State<EventForm> {
                   ),
                   validator: (v) => v == null || v.isEmpty ? 'Informe o CEP' : null,
                   keyboardType: TextInputType.number,
+                  maxLength: 9,
+                  onChanged: (value) {
+                    final formatted = _formatCep(value);
+                    if (formatted != value) {
+                      cep.value = TextEditingValue(
+                        text: formatted,
+                        selection: TextSelection.collapsed(offset: formatted.length),
+                      );
+                    }
+                    if (value.replaceAll(RegExp(r'[^0-9]'), '').length == 8) {
+                      _searchCep(value);
+                    }
+                  },
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
