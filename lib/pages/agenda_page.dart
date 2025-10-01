@@ -238,186 +238,202 @@ class _AgendaPageState extends State<AgendaPage> {
 
   @override
   Widget build(BuildContext context) {
-    final maxWidth = MediaQuery.of(context).size.width < 500 ? MediaQuery.of(context).size.width * 0.97 : 400.0;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final maxWidth = screenWidth < 500 ? screenWidth * 0.95 : 400.0;
+    
     return Scaffold(
       backgroundColor: const Color(0xFFF7F7FA),
-      body: Column(
-        children: [
-          // HEADER
-          Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 160,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      AppColors.purpleGradientStart,
-                      AppColors.purpleGradientMiddle,
-                      AppColors.purpleGradientEnd,
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    transform: GradientRotation(135 * 3.14 / 180),
-                  ),
-                ),
-                child: Center(
-                  child: LogoWidget(
-                    size: 115,
-                    colorOverlay: Colors.white,
-                    semanticsLabel: 'Street House — logo',
-                    onTap: () => Navigator.of(context).pushNamed('/sobre'),
-                  ),
-                ),
-              ),
-              // Seta minimalista "Voltar" para o canto esquerdo do header
-              Positioned(
-                top: 20,
-                left: 10,
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (_) => setState(() => _isHoveringBack = true),
-                  onExit: (_) => setState(() => _isHoveringBack = false),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 180),
-                    curve: Curves.easeInOut,
-                    decoration: BoxDecoration(
-                      color: _isHoveringBack
-                          ? const Color.fromARGB(255, 255, 255, 255).withOpacity(0.18)
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(10),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // HEADER
+            Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        AppColors.purpleGradientStart,
+                        AppColors.purpleGradientMiddle,
+                        AppColors.purpleGradientEnd,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      transform: GradientRotation(135 * 3.14 / 180),
                     ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
+                  ),
+                  child: Center(
+                    child: LogoWidget(
+                      size: 100,
+                      colorOverlay: Colors.white,
+                      semanticsLabel: 'Street House — logo',
+                      onTap: () => Navigator.of(context).pushNamed('/sobre'),
+                    ),
+                  ),
+                ),
+                // Seta minimalista "Voltar" para o canto esquerdo do header
+                Positioned(
+                  top: 10,
+                  left: 8,
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (_) => setState(() => _isHoveringBack = true),
+                    onExit: (_) => setState(() => _isHoveringBack = false),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 180),
+                      curve: Curves.easeInOut,
+                      decoration: BoxDecoration(
+                        color: _isHoveringBack
+                            ? const Color.fromARGB(255, 255, 255, 255).withOpacity(0.18)
+                            : Colors.transparent,
                         borderRadius: BorderRadius.circular(10),
-                        onTap: () => Navigator.of(context).pushNamed('/sobre'),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.arrow_back_ios_new,
-                                color: _isHoveringBack
-                                    ? const Color.fromARGB(255, 255, 255, 255)
-                                    : Colors.white,
-                                size: 18,
-                              ),
-                              const SizedBox(width: 2),
-                              Text(
-                                'Voltar',
-                                style: TextStyle(
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(10),
+                          onTap: () => Navigator.of(context).pushNamed('/sobre'),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.arrow_back_ios_new,
                                   color: _isHoveringBack
                                       ? const Color.fromARGB(255, 255, 255, 255)
                                       : Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  letterSpacing: 0,
+                                  size: 16,
                                 ),
-                              ),
-                            ],
+                                const SizedBox(width: 2),
+                                Text(
+                                  'Voltar',
+                                  style: TextStyle(
+                                    color: _isHoveringBack
+                                        ? const Color.fromARGB(255, 255, 255, 255)
+                                        : Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13,
+                                    letterSpacing: 0,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          // CARD PRINCIPAL
-          Expanded(
-            child: Center(
-              child: Container(
-                constraints: BoxConstraints(maxWidth: maxWidth),
-                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 12, offset: Offset(0, 4))],
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // MÊS E SETAS
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.chevron_left, color: AppColors.purpleHighlight, size: 22),
-                          onPressed: () => _changeMonth(-1),
-                          splashRadius: 16,
-                        ),
-                        Text(
-                          '${months[month-1]} $year',
-                          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18, color: AppColors.black),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.chevron_right, color: AppColors.purpleHighlight, size: 22),
-                          onPressed: () => _changeMonth(1),
-                          splashRadius: 16,
-                        ),
-                      ],
-                    ),
-                    // CALENDÁRIO
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: CalendarGrid(
-                        year: year,
-                        month: month,
-                        selectedDay: selectedDay,
-                        eventDays: eventDays,
-                        onSelect: (d) => setState(() => selectedDay = d),
-                      ),
-                    ),
-                    // EVENT LIST
-                    dayEvents.isEmpty
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 14.0),
-                            child: Text(
-                              "Nenhum evento para este dia",
-                              style: TextStyle(color: AppColors.textGray, fontSize: 14),
-                            ),
-                          )
-                        : Column(
-                            children: dayEvents.map((e) => Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 2.0),
-                              child: MinimalEventCard(
-                                event: e,
-                                monthsShort: monthsShort,
-                                onEdit: () => _editEvent(e),
-                                onDelete: () => _confirmDelete(e),
-                                onViewMore: () => _showEventDetails(e),
-                              ),
-                            )).toList(),
+              ],
+            ),
+            // CARD PRINCIPAL
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Container(
+                  width: double.infinity,
+                  constraints: BoxConstraints(maxWidth: maxWidth),
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 2))],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // MÊS E SETAS
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.chevron_left, color: AppColors.purpleHighlight, size: 20),
+                            onPressed: () => _changeMonth(-1),
+                            splashRadius: 16,
                           ),
-                  ],
+                          Flexible(
+                            child: Text(
+                              '${months[month-1]} $year',
+                              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: AppColors.black),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.chevron_right, color: AppColors.purpleHighlight, size: 20),
+                            onPressed: () => _changeMonth(1),
+                            splashRadius: 16,
+                          ),
+                        ],
+                      ),
+                      // CALENDÁRIO
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: CalendarGrid(
+                          year: year,
+                          month: month,
+                          selectedDay: selectedDay,
+                          eventDays: eventDays,
+                          onSelect: (d) => setState(() => selectedDay = d),
+                        ),
+                      ),
+                      // EVENT LIST
+                      Flexible(
+                        child: dayEvents.isEmpty
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 14.0),
+                                child: Text(
+                                  "Nenhum evento para este dia",
+                                  style: TextStyle(color: AppColors.textGray, fontSize: 14),
+                                ),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: dayEvents.length,
+                                itemBuilder: (context, index) {
+                                  final event = dayEvents[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 2.0),
+                                    child: MinimalEventCard(
+                                      event: event,
+                                      monthsShort: monthsShort,
+                                      onEdit: () => _editEvent(event),
+                                      onDelete: () => _confirmDelete(event),
+                                      onViewMore: () => _showEventDetails(event),
+                                    ),
+                                  );
+                                },
+                              ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          // FOOTER
-          Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 18),
-            child: Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.purpleHighlight,
-                  foregroundColor: Colors.white,
-                  elevation: 7,
-                  shape: StadiumBorder(),
-                  padding: const EdgeInsets.symmetric(horizontal: 38, vertical: 15),
-                  textStyle: const TextStyle(fontWeight: FontWeight.bold),
+            // FOOTER
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.purpleHighlight,
+                    foregroundColor: Colors.white,
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: _openNewEventForm,
+                  child: const Text('NOVO SHOW +', style: TextStyle(fontSize: 16, letterSpacing: 1)),
                 ),
-                onPressed: _openNewEventForm,
-                child: const Text('NOVO SHOW +', style: TextStyle(fontSize: 17, letterSpacing: 1)),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -438,9 +454,12 @@ class CalendarGrid extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final cellSize = (screenWidth - 80) / 7; // Calcula tamanho responsivo
     final days = DateTime(year, month + 1, 0).day;
     final firstWeekday = DateTime(year, month, 1).weekday % 7;
     final List<Widget> dayWidgets = [];
+    
     for (int i = 0; i < firstWeekday; i++) dayWidgets.add(const SizedBox());
     for (int d = 1; d <= days; d++) {
       final isSelected = d == selectedDay;
@@ -449,33 +468,32 @@ class CalendarGrid extends StatelessWidget {
         GestureDetector(
           onTap: () => onSelect(d),
           child: Container(
-            margin: const EdgeInsets.all(2),
+            margin: const EdgeInsets.all(1),
             decoration: BoxDecoration(
               color: isSelected ? AppColors.purpleHighlight.withOpacity(0.13) : null,
-              borderRadius: BorderRadius.circular(12),
-              border: isSelected ? Border.all(color: AppColors.purpleHighlight, width: 2) : null,
+              borderRadius: BorderRadius.circular(8),
+              border: isSelected ? Border.all(color: AppColors.purpleHighlight, width: 1.5) : null,
             ),
-            width: 29, height: 29,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 Text(
-                  d.toString().padLeft(2, '0'),
+                  d.toString(),
                   style: TextStyle(
                     color: isSelected ? AppColors.purpleHighlight : hasEvent ? AppColors.purpleHighlight : AppColors.black,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
                   ),
                 ),
                 if (hasEvent && !isSelected)
                   Positioned(
-                    bottom: 4,
+                    bottom: 2,
                     child: Container(
-                      width: 4,
-                      height: 4,
+                      width: 3,
+                      height: 3,
                       decoration: BoxDecoration(
                         color: AppColors.purpleHighlight,
-                        borderRadius: BorderRadius.circular(2),
+                        borderRadius: BorderRadius.circular(1.5),
                       ),
                     ),
                   ),
@@ -487,29 +505,32 @@ class CalendarGrid extends StatelessWidget {
     }
     return Column(
       children: [
-        const SizedBox(height: 7),
+        const SizedBox(height: 5),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: ['DOM','SEG','TER','QUA','QUI','SEX','SAB']
-              .map((d) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 1),
+              .map((d) => Expanded(
                     child: Text(
                       d,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColors.purpleHighlight,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13,
-                        letterSpacing: 0.5,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 11,
+                        letterSpacing: 0.3,
                       ),
                     ),
                   ))
               .toList(),
         ),
-        const SizedBox(height: 7),
+        const SizedBox(height: 5),
         GridView.count(
           crossAxisCount: 7,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
+          childAspectRatio: 1.0,
+          mainAxisSpacing: 2,
+          crossAxisSpacing: 2,
           children: dayWidgets,
         ),
       ],
@@ -534,69 +555,91 @@ class MinimalEventCard extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    // Resumido: nome, data/hora, cidade/estado
     return Container(
       decoration: BoxDecoration(
         color: Color(0xFFF7F7FA),
-        borderRadius: BorderRadius.circular(11),
+        borderRadius: BorderRadius.circular(10),
       ),
-      padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
-      child: Row(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(right: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-            decoration: BoxDecoration(
-              color: AppColors.purpleHighlight,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(monthsShort[event.date.month-1],
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
-                Text(event.date.day.toString(),
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15)),
-              ],
-            ),
-          ),
-          Expanded(
-            child: InkWell(
-              onTap: onViewMore,
+      padding: const EdgeInsets.all(8),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(right: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+              decoration: BoxDecoration(
+                color: AppColors.purpleHighlight,
+                borderRadius: BorderRadius.circular(6),
+              ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(event.name, style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.purpleHighlight, fontSize: 15)),
-                  Text(
-                    '${event.date.day} ${monthsShort[event.date.month-1]}, ${event.date.hour.toString().padLeft(2, '0')}:${event.date.minute.toString().padLeft(2, '0')}',
-                    style: TextStyle(color: AppColors.black, fontSize: 12),
-                  ),
-                  Text('${event.city} - ${event.state}', style: TextStyle(color: AppColors.textGray, fontSize: 12)),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: Size(30,18),
-                      foregroundColor: AppColors.purpleHighlight,
-                      textStyle: const TextStyle(fontSize: 13),
-                    ),
-                    onPressed: onViewMore,
-                    child: const Text('Ver mais'),
-                  ),
+                  Text(monthsShort[event.date.month-1],
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 10)),
+                  Text(event.date.day.toString(),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
                 ],
               ),
             ),
-          ),
-          IconButton(
-            icon: Icon(Icons.edit, color: AppColors.purpleHighlight, size: 21),
-            onPressed: onEdit,
-            tooltip: 'Editar',
-          ),
-          IconButton(
-            icon: Icon(Icons.delete, color: Colors.grey, size: 21),
-            onPressed: onDelete,
-            tooltip: 'Excluir',
-          ),
-        ],
+            Expanded(
+              child: InkWell(
+                onTap: onViewMore,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      event.name, 
+                      style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.purpleHighlight, fontSize: 14),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      '${event.date.day} ${monthsShort[event.date.month-1]}, ${event.date.hour.toString().padLeft(2, '0')}:${event.date.minute.toString().padLeft(2, '0')}',
+                      style: TextStyle(color: AppColors.black, fontSize: 11),
+                    ),
+                    Text(
+                      '${event.city} - ${event.state}', 
+                      style: TextStyle(color: AppColors.textGray, fontSize: 11),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        minimumSize: Size(30,16),
+                        foregroundColor: AppColors.purpleHighlight,
+                        textStyle: const TextStyle(fontSize: 12),
+                      ),
+                      onPressed: onViewMore,
+                      child: const Text('Ver mais'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Column(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.edit, color: AppColors.purpleHighlight, size: 18),
+                  onPressed: onEdit,
+                  tooltip: 'Editar',
+                  padding: EdgeInsets.all(4),
+                  constraints: BoxConstraints(minWidth: 32, minHeight: 32),
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete, color: Colors.grey, size: 18),
+                  onPressed: onDelete,
+                  tooltip: 'Excluir',
+                  padding: EdgeInsets.all(4),
+                  constraints: BoxConstraints(minWidth: 32, minHeight: 32),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -761,49 +804,67 @@ class _EventFormState extends State<EventForm> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final formWidth = screenWidth > 400 ? 350.0 : screenWidth * 0.9;
     final daysInMonth = DateTime(date.year, date.month + 1, 0).day;
+    
     return Material(
       color: Colors.transparent,
       child: Container(
-        width: 350,
+        width: formWidth,
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.85,
+        ),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 16)],
+          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 12)],
         ),
-        padding: const EdgeInsets.fromLTRB(20, 25, 20, 20),
+        padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text("Novo Evento", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Color(0xFF7952B3))),
-                const SizedBox(height: 10),
+                Text(
+                  widget.initial.id == null ? "Novo Evento" : "Editar Evento", 
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF7952B3))
+                ),
+                const SizedBox(height: 12),
                 TextFormField(
                   controller: name,
                   decoration: InputDecoration(
                     labelText: "Nome do Evento",
                     hintText: "Ex: Show Street House",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   ),
                   validator: (v) => v == null || v.isEmpty ? 'Informe o nome do evento' : null,
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(
                       child: DropdownButtonFormField<int>(
-                        decoration: InputDecoration(labelText: "Dia", border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
+                        decoration: InputDecoration(
+                          labelText: "Dia", 
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        ),
                         value: date.day,
                         items: List.generate(daysInMonth, (i) => i + 1).map((d) => DropdownMenuItem(value: d, child: Text('$d'))).toList(),
                         onChanged: (d) => setState(() => date = DateTime(date.year, date.month, d!, hour, minute)),
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: DropdownButtonFormField<int>(
-                        decoration: InputDecoration(labelText: "Mês", border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
+                        decoration: InputDecoration(
+                          labelText: "Mês", 
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        ),
                         value: date.month,
                         items: List.generate(12, (i) => i + 1).map((m) => DropdownMenuItem(value: m, child: Text(widget.months[m-1]))).toList(),
                         onChanged: (m) => setState(() => date = DateTime(date.year, m!, date.day, hour, minute)),
@@ -811,7 +872,7 @@ class _EventFormState extends State<EventForm> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(
@@ -833,28 +894,28 @@ class _EventFormState extends State<EventForm> {
                                     ),
                                   ),
                                   Container(
-                                    width: 36,
-                                    height: 36, // ajuste para melhor centralização
+                                    width: 32,
+                                    height: 32,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       border: Border.all(color: AppColors.purpleHighlight, width: 1),
-                                      borderRadius: BorderRadius.circular(7),
+                                      borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: TextFormField(
                                       controller: TextEditingController(text: hour.toString().padLeft(2, '0')),
                                       textAlign: TextAlign.center,
                                       textAlignVertical: TextAlignVertical.center,
                                       keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         border: InputBorder.none,
-                                        isCollapsed: false,
+                                        isCollapsed: true,
                                         isDense: true,
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                       style: const TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.normal,
-                                        height: 1.1,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.0,
                                       ),
                                       onChanged: (v) {
                                         int? value = int.tryParse(v);
@@ -886,28 +947,28 @@ class _EventFormState extends State<EventForm> {
                                     ),
                                   ),
                                   Container(
-                                    width: 36,
-                                    height: 36,
+                                    width: 32,
+                                    height: 32,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       border: Border.all(color: AppColors.purpleHighlight, width: 1),
-                                      borderRadius: BorderRadius.circular(7),
+                                      borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: TextFormField(
                                       controller: TextEditingController(text: minute.toString().padLeft(2, '0')),
                                       textAlign: TextAlign.center,
                                       textAlignVertical: TextAlignVertical.center,
                                       keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         border: InputBorder.none,
-                                        isCollapsed: false,
+                                        isCollapsed: true,
                                         isDense: true,
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                       style: const TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.normal,
-                                        height: 1.1,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.0,
                                       ),
                                       onChanged: (v) {
                                         int? value = int.tryParse(v);
@@ -933,13 +994,15 @@ class _EventFormState extends State<EventForm> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 TextFormField(
                   controller: cep,
                   decoration: InputDecoration(
                     labelText: "CEP",
                     hintText: "Ex: 12345-678",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    counterText: "",
                   ),
                   validator: (v) => v == null || v.isEmpty ? 'Informe o CEP' : null,
                   keyboardType: TextInputType.number,
@@ -957,17 +1020,18 @@ class _EventFormState extends State<EventForm> {
                     }
                   },
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 TextFormField(
                   controller: address,
                   decoration: InputDecoration(
                     labelText: "Endereço",
                     hintText: "Ex: Av. Principal",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   ),
                   validator: (v) => v == null || v.isEmpty ? 'Informe o endereço' : null,
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(
@@ -976,7 +1040,8 @@ class _EventFormState extends State<EventForm> {
                         decoration: InputDecoration(
                           labelText: "Número",
                           hintText: "Ex: 123",
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                         ),
                         validator: (v) => v == null || v.isEmpty ? 'Informe o número' : null,
                         keyboardType: TextInputType.number,
@@ -988,24 +1053,26 @@ class _EventFormState extends State<EventForm> {
                         controller: complement,
                         decoration: InputDecoration(
                           labelText: "Complemento",
-                          hintText: "Ex: Casa, Prédio, Sala 2",
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                          hintText: "Ex: Casa, Prédio",
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 TextFormField(
                   controller: neighborhood,
                   decoration: InputDecoration(
                     labelText: "Bairro",
                     hintText: "Ex: Centro",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   ),
                   validator: (v) => v == null || v.isEmpty ? 'Informe o bairro' : null,
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(
@@ -1014,7 +1081,8 @@ class _EventFormState extends State<EventForm> {
                         decoration: InputDecoration(
                           labelText: "Cidade",
                           hintText: "Ex: São Paulo",
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                         ),
                         validator: (v) => v == null || v.isEmpty ? 'Informe a cidade' : null,
                       ),
@@ -1024,7 +1092,8 @@ class _EventFormState extends State<EventForm> {
                       child: DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: "Estado",
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                         ),
                         value: state.isNotEmpty ? state : null,
                         items: estados.map((uf) => DropdownMenuItem(value: uf, child: Text(uf))).toList(),
@@ -1034,7 +1103,7 @@ class _EventFormState extends State<EventForm> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 18),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     Expanded(
@@ -1042,10 +1111,10 @@ class _EventFormState extends State<EventForm> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey.shade400,
                           foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           elevation: 0,
-                          textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                          textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                         ),
                         onPressed: () => Navigator.of(context).pop(),
                         child: const Text("CANCELAR"),
@@ -1057,10 +1126,10 @@ class _EventFormState extends State<EventForm> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF7952B3),
                           foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-                          elevation: 4,
-                          textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          elevation: 2,
+                          textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                         ),
                         onPressed: () {
                           if (_formKey.currentState?.validate() ?? false) {
@@ -1081,15 +1150,15 @@ class _EventFormState extends State<EventForm> {
                       ),
                     ),
                     if (widget.onDelete != null) ...[
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 6),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey.shade300,
                           foregroundColor: Colors.black,
-                          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 9),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           elevation: 0,
-                          textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                          textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
                         ),
                         onPressed: widget.onDelete,
                         child: const Text("EXCLUIR"),
