@@ -29,6 +29,10 @@ Para gerar a versão web:
 flutter build web --release
 ```
 
+## Deploy na Vercel
+
+O arquivo `vercel.json` e o script `scripts/vercel-build.sh` instalam o Flutter estável no ambiente de build, geram a aplicação web e configuram fallback SPA e headers de segurança.
+
 ## Qualidade
 
 ```bash

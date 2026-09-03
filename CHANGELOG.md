@@ -28,6 +28,7 @@
 - Testes atualizados para a experiência atual.
 - Pipeline CI para formatação, análise, testes e build web.
 - Documentação, política de segurança, contribuição e licença adicionadas.
+- Pipeline de deploy Flutter Web para Vercel, com fallback SPA, cache de assets e headers de segurança.
 
 ### Removido
 
