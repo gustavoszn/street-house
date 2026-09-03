@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'screens/access_flow.dart';
+import 'screens/explore_screen.dart';
+import 'screens/messages_screen.dart';
 
 void main() => runApp(const StreetHouseApp());
 
@@ -6,7 +9,7 @@ class AppColors {
   static const ink = Color(0xFF101114);
   static const surface = Color(0xFF181A1F);
   static const elevated = Color(0xFF22252B);
-  static const violet = Color(0xFF8B5CF6);
+  static const violet = Color(0xFFAF20E7);
   static const coral = Color(0xFFFF795F);
   static const cream = Color(0xFFF7F4EC);
   static const muted = Color(0xFF9B9CA3);
@@ -54,7 +57,7 @@ class StreetHouseApp extends StatelessWidget {
           contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
         ),
       ),
-      home: const HomeShell(),
+      home: AccessFlow(destinationBuilder: (_) => const HomeShell()),
     );
   }
 }
@@ -67,11 +70,12 @@ class HomeShell extends StatefulWidget {
 
 class _HomeShellState extends State<HomeShell> {
   int index = 0;
-  final pages = const [DiscoverPage(), AgendaPage(), ConnectionsPage(), ProfilePage()];
+  final pages = const [DiscoverPage(), ExploreScreen(), AgendaPage(), MessagesScreen(), ProfilePage()];
   final destinations = const [
-    (Icons.explore_outlined, Icons.explore, 'Descobrir'),
+    (Icons.home_outlined, Icons.home, 'Início'),
+    (Icons.explore_outlined, Icons.explore, 'Explorar'),
     (Icons.calendar_today_outlined, Icons.calendar_today, 'Agenda'),
-    (Icons.people_outline, Icons.people, 'Conexões'),
+    (Icons.chat_bubble_outline, Icons.chat_bubble, 'Mensagens'),
     (Icons.person_outline, Icons.person, 'Perfil'),
   ];
 

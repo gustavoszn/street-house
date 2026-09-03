@@ -1,23 +1,21 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:street_house/main.dart';
 
 void main() {
-  testWidgets('shows discovery experience', (tester) async {
+  testWidgets('shows branded splash and onboarding', (tester) async {
     await tester.pumpWidget(const StreetHouseApp());
-    expect(find.text('DESCUBRA A CENA'), findsOneWidget);
-    expect(find.text('Em destaque'), findsOneWidget);
-    expect(find.text('Festival de Rua'), findsWidgets);
+    expect(find.text('STREET HOUSE'), findsOneWidget);
+    await tester.pump(const Duration(milliseconds: 1500));
+    expect(find.text('Descubra artistas'), findsOneWidget);
+    expect(find.text('Pular'), findsOneWidget);
   });
 
-  testWidgets('navigates to agenda on compact layout', (tester) async {
-    tester.view.physicalSize = const Size(390, 844);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
+  testWidgets('opens validated login after skipping onboarding', (tester) async {
     await tester.pumpWidget(const StreetHouseApp());
-    await tester.tap(find.text('Agenda').last);
+    await tester.pump(const Duration(milliseconds: 1500));
+    await tester.tap(find.text('Pular'));
     await tester.pumpAndSettle();
-    expect(find.text('Sua agenda'), findsOneWidget);
+    expect(find.text('Bem-vindo de volta'), findsOneWidget);
+    expect(find.text('Entrar na demonstração'), findsOneWidget);
   });
 }

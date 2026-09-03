@@ -2,6 +2,16 @@
 
 ## 2.0.0 — modernização completa
 
+### Evolução mobile
+
+- Adicionados Splash, onboarding e login com validação.
+- Adicionada escolha contextual entre Artista e Organizador.
+- Navegação principal ampliada para Início, Explorar, Agenda, Mensagens e Perfil.
+- Busca desacoplada com estados de carregamento, vazio e erro.
+- Criadas camadas de models, repository e state management sem dependências externas.
+- Adicionadas conversas e chat explicitamente demonstrativos.
+- Criada `DOCUMENTACAO_MOBILE.md` com arquitetura, telas, status e pendências.
+
 ### Segurança
 
 - Removida a API HTTP presa a `localhost` e `10.0.2.2`.

@@ -49,6 +49,8 @@ A versão 2.0 foi convertida em uma demonstração local segura. Ela não conté
 
 Consulte [CHANGELOG.md](CHANGELOG.md) para o histórico detalhado e [SECURITY.md](SECURITY.md) para a política de segurança.
 
+A especificação funcional, arquitetura, status de cada recurso e pendências estão em [DOCUMENTACAO_MOBILE.md](DOCUMENTACAO_MOBILE.md).
+
 ## Autoria
 
 Concepção e desenvolvimento por Gustavo Brito Rodrigues de Sousa.
