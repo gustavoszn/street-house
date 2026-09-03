@@ -10,4 +10,6 @@ fi
 export PATH="$FLUTTER_DIR/bin:$PATH"
 flutter config --enable-web --no-analytics
 flutter pub get
-flutter build web --release --pwa-strategy=offline-first
+flutter analyze
+flutter test
+flutter build web --release
