@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:streethouse_flutter/main.dart'; // Corrija para o seu package name!
+import 'package:street_house/main.dart';
 
 void main() {
-  testWidgets('App builds and shows LoginPage', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  testWidgets('shows discovery experience', (tester) async {
+    await tester.pumpWidget(const StreetHouseApp());
+    expect(find.text('DESCUBRA A CENA'), findsOneWidget);
+    expect(find.text('Em destaque'), findsOneWidget);
+    expect(find.text('Festival de Rua'), findsWidgets);
+  });
 
-    // Verifica se o MaterialApp está presente
-    expect(find.byType(MaterialApp), findsOneWidget);
-
-    // Verifica se os campos de login aparecem (ajuste o texto conforme seu login_page.dart!)
-    expect(find.text('E-mail'), findsOneWidget);
-    expect(find.text('Senha'), findsOneWidget);
+  testWidgets('navigates to agenda on compact layout', (tester) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(const StreetHouseApp());
+    await tester.tap(find.text('Agenda').last);
+    await tester.pumpAndSettle();
+    expect(find.text('Sua agenda'), findsOneWidget);
   });
 }

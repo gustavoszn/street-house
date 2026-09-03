@@ -1,24 +1,20 @@
-name: streethouse_flutter
-description: Projeto Flutter com assets corrigidos
+name: street_house
+description: Plataforma demonstrativa que conecta artistas e organizadores de eventos.
 publish_to: 'none'
-version: 1.0.0+1
+version: 2.0.0+2
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=3.4.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  google_fonts: ^6.1.0
-  url_launcher: ^6.3.1
-
-  http: ^1.1.0
-  shared_preferences: ^2.2.2
+  cupertino_icons: ^1.0.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true
