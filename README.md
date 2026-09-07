@@ -1,5 +1,9 @@
 # Street House
 
+Aplicação principal publicada: https://street-house-web.vercel.app/recursos
+
+O Street House Web é apresentado como o projeto principal do ecossistema. Este repositório preserva a experiência Flutter responsiva que complementa a plataforma; ela não é tratada como um case separado no portfólio.
+
 Plataforma demonstrativa que aproxima artistas independentes, coletivos e organizadores de eventos. O projeto apresenta uma experiência multiplataforma construída com Flutter, com foco em descoberta, agenda, conexões profissionais e portfólio artístico.
 
 > Projeto acadêmico e demonstrativo. Os nomes, eventos e perfis exibidos são fictícios; a aplicação não coleta dados pessoais nem realiza autenticação real.
